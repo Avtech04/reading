@@ -4,8 +4,8 @@ FROM python:3.11-slim
 # Set the working directory
 WORKDIR /code
 
-# Create a writable cache directory and set the correct owner
-RUN mkdir -p /code/.cache && chown -R user:user /code/.cache
+# Create a world-writable cache directory
+RUN mkdir -p /code/.cache && chmod -R 777 /code/.cache
 
 # Tell huggingface libraries to use this folder for caching models
 ENV HF_HOME /code/.cache
