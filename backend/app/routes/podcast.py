@@ -41,7 +41,7 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from app.utils.podcast_utils import generate_podcast_script, convert_text_to_speech
+from backend.app.utils.podcast_utils import generate_podcast_script, convert_text_to_speech
 
 router = APIRouter()
 

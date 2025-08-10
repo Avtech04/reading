@@ -41,12 +41,12 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 # Import your database models and session dependency
-from app import models
-from app.database import SessionLocal
+from backend.app import models
+from backend.app.database import SessionLocal
 
 # Import your existing utility functions
-from app.utils.embedding_utils import extract_sections, find_related_sections
-from app.utils.summarizer import generate_insight
+from backend.app.utils.embedding_utils import extract_sections, find_related_sections
+from backend.app.utils.summarizer import generate_insight
 
 router = APIRouter()
 

@@ -34,9 +34,9 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from app import models
-from app.database import SessionLocal
-from app.utils.gemini_utils import extract_text_from_all_pdfs, get_insights_from_gemini
+from backend.app import models
+from backend.app.database import SessionLocal
+from backend.app.utils.gemini_utils import extract_text_from_all_pdfs, get_insights_from_gemini
 
 router = APIRouter()
 

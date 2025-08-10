@@ -76,8 +76,8 @@ from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from typing import List
 from sqlalchemy.orm import Session
-from app import models, schemas
-from app.database import SessionLocal
+from backend.app import models, schemas
+from backend.app.database import SessionLocal
 
 # --- VERCEL BLOB CONFIGURATION ---
 # It's best to set this as an environment variable.

@@ -30,16 +30,15 @@
 #         raise HTTPException(status_code=500, detail=str(e))
 
 
-
-
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
 from sqlalchemy.orm import Session
 
-from app import models
-from app.database import SessionLocal
-from app.utils.chat_utils import get_pdf_text, get_chat_response
+# --- CORRECTED IMPORTS ---
+from backend.app import models
+from backend.app.database import SessionLocal
+from backend.app.utils.chat_utils import get_pdf_text, get_chat_response
 
 router = APIRouter()
 
