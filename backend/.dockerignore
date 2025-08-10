@@ -1,0 +1,14 @@
+# Python virtual environment
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Secret files
+.env
+serviceAccountKey.json
+
+# Git folder
+.git
