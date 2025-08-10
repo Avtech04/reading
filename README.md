@@ -1,10 +1,6 @@
 ---
-title: Pdf Insight Backend
-emoji: 🐢
-colorFrom: purple
-colorTo: purple
-sdk: docker
-pinned: false
+title: PDF Insight Backend
+emoji: 🚀
+sdk: fastapi
+app_file: app.py
 ---
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
