@@ -212,7 +212,7 @@ const SnippetViewer = ({ snippet, onClose }) => {
   useEffect(() => {
     if (!adobeDCView.current) {
       adobeDCView.current = new window.AdobeDC.View({
-        clientId: "847ba97432054871b8ffbb5f71a87f62",
+        clientId: "f1db30d70e0c4791848e30b94ea34f46",
         divId: viewerRef.current.id,
       });
     }
