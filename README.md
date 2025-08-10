@@ -1,6 +1,6 @@
 ---
 title: PDF Insight Backend
-emoji: 🚀
-sdk: fastapi
-app_file: app.py
+emoji: 🐳
+sdk: docker
+app_port: 8080
 ---
