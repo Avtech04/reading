@@ -27,9 +27,8 @@
 #     return {"message": "Backend is running"}
 
 
+# app.py (previously backend/app/main.py)
 
-
-# backend/app/main.py
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
@@ -39,27 +38,32 @@ load_dotenv()
 # Now, with the environment loaded, we can safely import everything else.
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from app import models
-from app.database import engine
-from app.routes import pdf, recommend, insights, chat, podcast
+
+# --- UPDATED IMPORTS ---
+# The paths are now relative to the root directory
+from backend.app import models
+from backend.app.database import engine
+from backend.app.routes import pdf, recommend, insights, chat, podcast
 
 # This creates the database table if it doesn't exist
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Adobe Hackathon Backend")
 
+# NOTE: For deployment, you may want to update allow_origins
+# to your frontend's actual URL instead of just localhost.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "YOUR_FRONTEND_URL_HERE"], # Add your deployed frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Serve generated audio files
+# Serve generated audio files from a folder in the root directory
 app.mount("/audio", StaticFiles(directory="generated_audio"), name="audio")
 
-# --- Route includes ---
+# --- Route includes (these do not need to be changed) ---
 app.include_router(pdf.router, prefix="/api/pdf", tags=["PDFs"])
 app.include_router(recommend.router, prefix="/api/recommend", tags=["Recommendations"])
 app.include_router(insights.router, prefix="/api", tags=["Insights"])
