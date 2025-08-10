@@ -290,7 +290,7 @@ const PDFUpload = ({ fetchPdfList }) => {
     try {
       setUploading(true);
       setMessage(""); // Clear previous messages
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/pdf/upload`, formData, {
+      await axios.post("https://avtech03-pdf-insight-backend.hf.space/api/pdf/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

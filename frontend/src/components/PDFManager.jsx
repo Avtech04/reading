@@ -12,7 +12,7 @@ const PDFManager = () => {
 
   const fetchPdfList = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/pdf/list`);
+      const response = await axios.get("https://avtech03-pdf-insight-backend.hf.space/api/pdf/list");
       setPdfList(response.data.pdfs);
     } catch (error) {
       console.error("Failed to fetch PDF list:", error);
@@ -23,7 +23,7 @@ const PDFManager = () => {
     if (!window.confirm(`Are you sure you want to delete "${filename}"?`)) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/pdf/delete/${filename}`);
+      await axios.delete(`https://avtech03-pdf-insight-backend.hf.space/api/pdf/delete/${filename}`);
       if (selectedPdf === filename) setSelectedPdf(null);
       fetchPdfList();
     } catch (error) {

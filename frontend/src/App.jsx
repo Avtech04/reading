@@ -280,7 +280,7 @@ export default function App() {
   const [showViewer, setShowViewer] = useState(false);
   
   const fetchPdfList = () => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/pdf/list`)
+    fetch(`https://avtech03-pdf-insight-backend.hf.space/api/pdf/list`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setPdfs(data);
@@ -298,7 +298,7 @@ export default function App() {
 
   const handleUpload = () => fetchPdfList();
   const handleDelete = (filename) => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/pdf/delete/${filename}`, { method: "DELETE" })
+    fetch(`https://avtech03-pdf-insight-backend.hf.space/api/pdf/delete/${filename}`, { method: "DELETE" })
       .then(() => fetchPdfList())
       .catch((err) => console.error("Delete failed:", err));
   };

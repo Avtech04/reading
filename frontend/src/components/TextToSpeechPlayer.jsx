@@ -17,7 +17,7 @@ const TextToSpeechPlayer = ({ textToRead, contextType = "text" }) => {
     setAudioUrl(null);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/podcast`, {
+      const response = await fetch("https://avtech03-pdf-insight-backend.hf.space/api/podcast", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -27,7 +27,7 @@ const TextToSpeechPlayer = ({ textToRead, contextType = "text" }) => {
       });
       if (!response.ok) throw new Error("Server error");
       const data = await response.json();
-      const fullAudioUrl = `${import.meta.env.VITE_API_BASE_URL}${data.audio_url}`;
+      const fullAudioUrl = `https://avtech03-pdf-insight-backend.hf.space${data.audio_url}`;
       setAudioUrl(fullAudioUrl);
       setIsPlaying(true);
     } catch (err) {

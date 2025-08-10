@@ -93,7 +93,7 @@ const InsightsPanel = () => {
   const fetchInsights = () => {
     setIsLoading(true);
     setError(null);
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/insights`, { method: "POST" })
+    fetch("https://avtech03-pdf-insight-backend.hf.space/api/insights", { method: "POST" })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch insights.");
         return res.json();
