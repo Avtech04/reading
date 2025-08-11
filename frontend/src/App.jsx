@@ -272,13 +272,17 @@ import PDFViewer from "./components/PDFViewer";
 import InsightsPanel from "./components/InsightsPanel";
 import Chatbot from "./components/Chatbot";
 import { FileText } from 'lucide-react';
-
+import SummarizeButton from "./components/SummarizeButton";
+import SummarizeModal from "./components/SummarizeModal";
+import DebateButton from "./components/DebateButton";
+import DebateModal from "./components/DebateModal";
 export default function App() {
   const [pdfs, setPdfs] = useState([]);
   const [selectedSnippet, setSelectedSnippet] = useState(null);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [showViewer, setShowViewer] = useState(false);
-  
+  const [isSummarizeModalOpen, setIsSummarizeModalOpen] = useState(false);
+    const [isDebateModalOpen, setIsDebateModalOpen] = useState(false);
   const fetchPdfList = () => {
     fetch(`https://avtech03-pdf-insight-backend.hf.space/api/pdf/list`)
       .then((res) => res.json())
@@ -348,8 +352,22 @@ export default function App() {
         </div>
       </main>
 
+      {/* Floating Buttons */}
+      <DebateButton onClick={() => setIsDebateModalOpen(true)} />
+      <SummarizeButton onClick={() => setIsSummarizeModalOpen(true)} />
       <Chatbot />
 
+      {/* Modals */}
+      <DebateModal
+        isOpen={isDebateModalOpen}
+        onClose={() => setIsDebateModalOpen(false)}
+        onEvidenceClick={handleSnippetClick}
+      />
+      <SummarizeModal 
+        isOpen={isSummarizeModalOpen}
+        onClose={() => setIsSummarizeModalOpen(false)}
+        pdfs={pdfs}
+      />
       {selectedSnippet && <SnippetViewer snippet={selectedSnippet} onClose={() => setSelectedSnippet(null)} />}
       {showViewer && <PDFViewer file={selectedPdf} onClose={() => setShowViewer(false)} />}
     </div>
