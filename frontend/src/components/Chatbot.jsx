@@ -91,7 +91,7 @@
 
 import React, { useState } from 'react';
 import { Bot, X, Send } from 'lucide-react';
-
+import { API_BASE_URL } from '../apiConfig';
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -108,7 +108,7 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://avtech03-pdf-insight-backend.hf.space/api/chat", {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: input }),

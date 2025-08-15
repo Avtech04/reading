@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import toast from 'react-hot-toast';
-
+import { API_BASE_URL } from '../apiConfig';
 const SummarizeModal = ({ isOpen, onClose, pdfs }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [summaries, setSummaries] = useState([]);
@@ -25,7 +25,7 @@ const SummarizeModal = ({ isOpen, onClose, pdfs }) => {
     setSummaries([]);
 
     try {
-      const response = await fetch(`https://avtech03-pdf-insight-backend.hf.space/api/summarize`, {
+      const response = await fetch(`${API_BASE_URL}/api/summarize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filenames: selectedFiles }),

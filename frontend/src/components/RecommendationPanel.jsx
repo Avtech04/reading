@@ -106,13 +106,11 @@
 
 
 //----------------------------------------------------------------
-
-
-
 import React, { useState } from "react";
 import PodcastPlayer from './PodcastPlayer';
 import { BarChart2, BookOpen } from 'lucide-react';
-
+import toast from 'react-hot-toast';
+import { API_BASE_URL } from '../apiConfig';
 const RecommendationPanel = ({ onSnippetClick }) => {
   const [persona, setPersona] = useState("");
   const [task, setTask] = useState("");
@@ -121,11 +119,11 @@ const RecommendationPanel = ({ onSnippetClick }) => {
 
   const getRecommendations = () => {
     if (!persona.trim() || !task.trim()) {
-      alert("Please enter both persona and task.");
+      toast.error("Please enter both a Persona and a Task.");
       return;
     }
     setLoadingRecs(true);
-    fetch("https://avtech03-pdf-insight-backend.hf.space/api/recommend/related", {
+    fetch(`${API_BASE_URL}/api/recommend/related`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ persona, task }),
@@ -134,8 +132,13 @@ const RecommendationPanel = ({ onSnippetClick }) => {
       .then((data) => {
         setRecommendations(data.recommendations || []);
       })
-      .catch((err) => console.error("Error fetching recommendations:", err))
-      .finally(() => setLoadingRecs(false));
+      .catch((err) => {
+        console.error("Error fetching recommendations:", err);
+        toast.error("Failed to get recommendations.");
+      })
+      .finally(() => {
+        setLoadingRecs(false);
+      });
   };
 
   return (

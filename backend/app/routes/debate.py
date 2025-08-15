@@ -36,3 +36,7 @@ async def handle_debate_generation(db: Session = Depends(get_db)):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+

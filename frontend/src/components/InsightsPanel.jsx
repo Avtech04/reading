@@ -84,7 +84,7 @@
 import React, { useState } from "react";
 import PodcastPlayer from './PodcastPlayer';
 import { Zap } from 'lucide-react';
-
+import { API_BASE_URL } from '../apiConfig';
 const InsightsPanel = () => {
   const [insights, setInsights] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +93,7 @@ const InsightsPanel = () => {
   const fetchInsights = () => {
     setIsLoading(true);
     setError(null);
-    fetch("https://avtech03-pdf-insight-backend.hf.space/api/insights", { method: "POST" })
+    fetch(`${API_BASE_URL}/api/insights`, { method: "POST" })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch insights.");
         return res.json();

@@ -49,3 +49,6 @@ def generate_debate_from_text(text_content: str) -> str:
     except Exception as e:
         print(f"Error generating debate: {e}")
         return f'{{"error": "An error occurred while generating the debate: {str(e)}"}}'
+
+
+

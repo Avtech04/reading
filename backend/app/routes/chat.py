@@ -1,41 +1,9 @@
-# from fastapi import APIRouter, HTTPException
-# from pydantic import BaseModel
-# from typing import List, Optional
-# from app.utils.chat_utils import get_pdf_text, get_chat_response
-
-# router = APIRouter()
-
-# class ChatRequest(BaseModel):
-#     question: str
-#     filenames: Optional[List[str]] = None # User can specify files, or we use all
-
-# @router.post("/chat")
-# async def handle_chat(request: ChatRequest):
-#     """
-#     Handles a user's chat question, providing a contextual answer from PDFs.
-#     """
-#     try:
-#         # Get context from all PDFs or just the specified ones
-#         context = get_pdf_text(request.filenames)
-        
-#         if not context:
-#             raise HTTPException(status_code=404, detail="No PDF documents found or specified to answer from.")
-            
-#         # Get the answer from Gemini
-#         answer = get_chat_response(request.question, context)
-        
-#         return {"answer": answer}
-        
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
-
 
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
 from sqlalchemy.orm import Session
 
-# --- CORRECTED IMPORTS ---
 from backend.app import models
 from backend.app.database import SessionLocal
 from backend.app.utils.chat_utils import get_pdf_text, get_chat_response
