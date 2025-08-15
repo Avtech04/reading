@@ -43,7 +43,7 @@ from fastapi.staticfiles import StaticFiles
 # The paths are now relative to the root directory
 from backend.app import models
 from backend.app.database import engine
-from backend.app.routes import pdf, recommend, insights, chat, podcast, summarize,debate
+from backend.app.routes import pdf, recommend, insights, chat, podcast, summarize,debate,selection_insight,tts
 
 # This creates the database table if it doesn't exist
 models.Base.metadata.create_all(bind=engine)
@@ -71,6 +71,8 @@ app.include_router(chat.router, prefix="/api", tags=["Chat"])
 app.include_router(podcast.router, prefix="/api", tags=["Podcast"])
 app.include_router(summarize.router, prefix="/api", tags=["Summarize"]) # 2. Add the summarize router
 app.include_router(debate.router, prefix="/api", tags=["Debate"]) # 2. Add the debate router
+app.include_router(selection_insight.router, prefix="/api", tags=["Selection Insight"]) # 2. Add the new router
+app.include_router(tts.router, prefix="/api", tags=["TTS"]) # 2. Add the new tts router
 
 @app.get("/")
 def root():

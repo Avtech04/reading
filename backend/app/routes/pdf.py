@@ -83,7 +83,7 @@ from backend.app.database import SessionLocal
 # It's best to set this as an environment variable.
 # For now, paste the token you copied from your Vercel dashboard.
 
-os.environ['BLOB_READ_WRITE_TOKEN'] = os.environ.get("BLOB_READ_WRITE_TOKEN")
+os.environ['BLOB_READ_WRITE_TOKEN'] = "vercel_blob_rw_lRpOck4gSr9uHxdX_KqlJBVMOng0TVXyKgJi79nayjP8vVL"
 
 router = APIRouter()
 

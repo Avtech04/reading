@@ -23,3 +23,4 @@ EXPOSE 8080
 
 # The command to run your app.py file
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+
