@@ -54,7 +54,7 @@ app = FastAPI(title="Adobe Hackathon Backend")
 # to your frontend's actual URL instead of just localhost.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://reading-chi.vercel.app/"], # Add your deployed frontend URL
+    allow_origins=["http://localhost:3000", "https://reading-chi.vercel.app/","https://adobe-insight-app.vercel.app/"], # Add your deployed frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
