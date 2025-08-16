@@ -1,61 +1,6 @@
 
 
 
-# import os
-# import uuid
-# from gtts import gTTS
-# import google.generativeai as genai
-# import requests
-
-# AUDIO_DIR = "generated_audio"
-# os.makedirs(AUDIO_DIR, exist_ok=True)
-
-# def generate_podcast_script(context_type: str, text_content: str) -> str:
-#     model_name = 'gemini-1.5-flash'
-#     model = genai.GenerativeModel(model_name)
-    
-#     if context_type == 'copied_text':
-#         return text_content
-#     elif context_type == "insights":
-#         prompt_instruction = "Your task is to transform the following AI-generated insights into a short, engaging podcast script..."
-#     elif context_type == "recommendations":
-#         prompt_instruction = "You are a podcast host. Your task is to summarize the following list of recommended text snippets..."
-#     else: # page_content
-#         prompt_instruction = "You are a podcast host. Your task is to provide a brief audio summary of the following text..."
-
-#     prompt = f"""
-#     {prompt_instruction}
-#     The script should be approximately 2 minutes long when spoken...
-#     Here is the content:
-#     ---
-#     {text_content}
-#     ---
-#     """
-    
-#     try:
-#         response = model.generate_content(prompt)
-#         return response.text
-#     except Exception as e:
-#         return "There was an error creating the podcast script."
-
-# def convert_text_to_speech(text: str) -> str:
-#     # provider = os.environ.get("TTS_PROVIDER", "google").lower()
-#     filename = f"podcast_{uuid.uuid4()}.mp3"
-#     filepath = os.path.join(AUDIO_DIR, filename)
-
-
-#     tts = gTTS(text=text, lang='en', slow=False)
-#     tts.save(filepath)
-        
-#     # --- THIS IS THE CRUCIAL CHANGE ---
-#     # Return only the relative path to the audio file.
-#     return f"/audio/{filename}"
-
-
-
-
-
-
 import os
 import uuid
 from gtts import gTTS
@@ -115,12 +60,36 @@ def generate_podcast_script(context_type: str, text_content: str) -> str:
 
 def convert_text_to_speech(text: str) -> str:
     # This function's logic remains the same
-    # provider = os.environ.get("TTS_PROVIDER", "google").lower()
+    provider = os.environ.get("TTS_PROVIDER", "google").lower()
     filename = f"podcast_{uuid.uuid4()}.mp3"
     filepath = os.path.join(AUDIO_DIR, filename)
+    print(f"Using TTS Provider: {provider}")
 
+    if provider == "azure":
+        # This block will run during the official evaluation
+        azure_key = os.environ.get("AZURE_TTS_KEY")
+        azure_endpoint = os.environ.get("AZURE_TTS_ENDPOINT")
+        if not all([azure_key, azure_endpoint]):
+            raise ValueError("Azure TTS credentials (AZURE_TTS_KEY, AZURE_TTS_ENDPOINT) are not set in the environment.")
+        
+        headers = {
+            "Ocp-Apim-Subscription-Key": azure_key,
+            "Content-Type": "application/ssml+xml",
+            "X-Microsoft-OutputFormat": "audio-16khz-128kbitrate-mono-mp3",
+            "User-Agent": "pdf-insight-hackathon"
+        }
+        # We create a simple SSML body to wrap the text
+        ssml_body = f"<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'><voice name='en-US-JennyNeural'>{text}</voice></speak>"
+        
+        response = requests.post(azure_endpoint, headers=headers, data=ssml_body.encode('utf-8'))
+        response.raise_for_status()
+        
+        with open(filepath, 'wb') as audio_file:
+            audio_file.write(response.content)
 
-    tts = gTTS(text=text, lang='en', slow=False)
-    tts.save(filepath)
+    else: 
+        # This block will run for your local development, using Google's TTS
+        tts = gTTS(text=text, lang='en', slow=False)
+        tts.save(filepath)
         
     return f"/audio/{filename}"
